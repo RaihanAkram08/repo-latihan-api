@@ -59,6 +59,7 @@ const updateProduct = (req, res, id) => {
 
   req.on('end', () => {
     const { name, price, stock, description, category } = JSON.parse(body); // Menguraikan data JSON
+    // jika index yang dicari tidak ditemukan maka akan mengembalikan -1
     const productIndex = products.findIndex(p => p.product_id === parseInt(id)); // Mencari indeks produk berdasarkan ID
     if (productIndex !== -1) {
       products[productIndex] = {
@@ -78,6 +79,7 @@ const updateProduct = (req, res, id) => {
 
 // Fungsi untuk menghapus produk
 const deleteProduct = (res, id) => {
+  // jika index yang dicari tidak ditemukan maka akan mengembalikan -1
   const productIndex = products.findIndex(p => p.product_id === parseInt(id)); // Mencari indeks produk
   if (productIndex !== -1) {
     products.splice(productIndex, 1); // Menghapus produk dari array
@@ -110,6 +112,11 @@ const server = http.createServer((req, res) => {
     res.writeHead(404, { 'Content-Type': 'application/json' }); // Menangani rute tidak ditemukan
     res.end(JSON.stringify({ message: 'Rute tidak ditemukan!' }));
   }
+   // indexnya mulai dibaca dari URL, jadi localhost:3000 tidak terindikasi karena dia bukan URL
+  // [0] index kosong ''
+  // [1] api
+  // [2] products
+  // [3] ID
 });
 
 // Memulai server di port 3000

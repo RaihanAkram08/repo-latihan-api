@@ -102,6 +102,11 @@ const server = http.createServer((req, res) => {
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ message: 'Rute tidak ditemukan!' }));
   }
+   // indexnya mulai dibaca dari URL, jadi localhost:3000 tidak terindikasi karena dia bukan URL
+  // [0] index kosong ''
+  // [1] api
+  // [2] employees
+  // [3] ID
 });
 
 server.listen(3000, () => {
